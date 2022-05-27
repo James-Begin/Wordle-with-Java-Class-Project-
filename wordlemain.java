@@ -1,18 +1,8 @@
-import java.util.*;
-import java.awt.*;
-import java.awt.event.*;
-import javax.swing.*;
-
-public class wordlemain extends JPanel
+public class wordlemain
 {
     public static void main(String[]args){
         System.out.print('\f');
-        Scanner sc = new Scanner(System.in);
         wordlegui gui = new wordlegui();
         wordlelogic logic = new wordlelogic();
     }
 }
-
-
-
-
