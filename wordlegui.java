@@ -112,21 +112,33 @@ public class wordlegui extends JPanel
     }
     public static void nextRow(int[] letters, Graphics g){
         
-        // this block will create the answer squares with the correct information
+        // this block will create the answer squares with the correct 
+        // information
         for(int i = 0; i<=400; i=i+100){
+            
+            
             if(letters[i/100] == 2){
+                // if the letter is in the right spot and the right letter
+                // make the box green
                 g.setColor(Color.green);
             } else if(letters[i/100] == 1){
+                // if the letter is correct but in the wrong spot
+                // make the box yellow
                 g.setColor(Color.yellow);
             } else{
+                // if neither is correct, keep the box gray
                 g.setColor(Color.gray);
             }
+            
+            // add the box
             g.fillRect((250+i),(100*row),90,90);
         }
         
     }
     
     public static int[] remap(int[] guess){
+        
+        // take the guess and store it in the answer log
         int[] ans = {0,0,0,0,0};
         for(int i = 0; i < 5; i++){
             ans[i] = guess[i];
