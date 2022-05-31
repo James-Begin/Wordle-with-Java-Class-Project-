@@ -26,11 +26,16 @@ public class wordlegui extends JPanel
     static int[] row4ans = {0,0,0,0,0};
     static int[] row5ans = {0,0,0,0,0};
     
+    static String[] row1guess = {"g","","","",""};
+    static String[] row2guess = {"","","","",""};
+    static String[] row3guess = {"","","","",""};
+    static String[] row4guess = {"","","","",""};
+    static String[] row5guess = {"","","","",""};
+    
     // create variable for what row to run at
     static int row = 1;
     
     public static void main(String[]args){
-        
         
         wordlegui gui = new wordlegui();
         JFrame frame = new JFrame("Wordle");
@@ -96,22 +101,21 @@ public class wordlegui extends JPanel
         // add guess button
         b1.setBounds(475,725,50,50);
         
-        // remake all the previous boxes with the stored answers.
+        // remake all the previous boxes with the stored answers and guesses.
         // at the start all of the answers are stored as 0 and all boxes
         // are gray.
-        nextRow(row1ans, g);
+        nextRow(row1guess, row1ans, g);
         row = row + 1;
-        nextRow(row2ans, g);
+        nextRow(row2guess, row2ans, g);
         row = row + 1;
-        nextRow(row3ans, g);
+        nextRow(row3guess, row3ans, g);
         row = row + 1;
-        nextRow(row4ans, g);
+        nextRow(row4guess, row4ans, g);
         row = row + 1;
-        nextRow(row5ans, g);
+        nextRow(row5guess, row5ans, g);
         row = 1;
     }
-    public static void nextRow(int[] letters, Graphics g){
-        
+    public static void nextRow(String[] guess, int[] letters, Graphics g){
         // this block will create the answer squares with the correct 
         // information
         for(int i = 0; i<=400; i=i+100){
@@ -132,6 +136,7 @@ public class wordlegui extends JPanel
             
             // add the box
             g.fillRect((250+i),(100*row),90,90);
+            
         }
         
     }
