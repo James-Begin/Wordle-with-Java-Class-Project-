@@ -169,25 +169,25 @@ public class wordlegui extends JPanel
         
         // add the previous guesses
         placeText=preguess[0];
-        addlabel(l4,placeText,10,230,150,15,20);
+        addlabel(l4,placeText,10,230,150,20,20);
         
         placeText=preguess[1];
-        addlabel(l5,placeText,10,250,150,15,20);
+        addlabel(l5,placeText,10,260,150,20,20);
         
         placeText=preguess[2];
-        addlabel(l6,placeText,10,270,150,15,20);
+        addlabel(l6,placeText,10,290,150,20,20);
         
         placeText=preguess[3];
-        addlabel(l7,placeText,10,290,150,15,20);
+        addlabel(l7,placeText,10,320,150,20,20);
         
         placeText=preguess[4];
-        addlabel(l8,placeText,10,310,150,15,20);
+        addlabel(l8,placeText,10,350,150,20,20);
     }
     
     // logic for next guess
     public static int[] guess(int guessnum, int[] rowans){
         rowans = remap(guessCheck);
-        preguess[guessnum-1] = "WWMWW";
+        preguess[guessnum-1] = guess;
         frame.add(gui);
         SwingUtilities.updateComponentTreeUI(frame);
         return rowans;
