@@ -3,6 +3,7 @@ import java.util.*;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
+import java.util.Date; 
 
 
 public class wordlegui extends JPanel 
@@ -48,9 +49,14 @@ public class wordlegui extends JPanel
     
     static wordlegui gui = new wordlegui();
     static JFrame frame = new JFrame("Wordle");
-    static Scanner sc = new Scanner(System.in);
     
-    public static void main(String[]args){
+    static boolean nextGuess = false;
+    
+    static String answerWord;
+    
+    public static void creation(String Word){
+        
+        answerWord = Word;
         // add all elements to frame
         frame.add(l1);
         frame.add(l2);
@@ -70,29 +76,61 @@ public class wordlegui extends JPanel
                 buttonGuessAction(evt);
             }
         });
-        
         // set frame size and make it visible
         frame.setSize(1000,1000);
         frame.add(gui);
         frame.setVisible(true);
         // wait for guess one
-        int x = sc.nextInt();
+        while(nextGuess == false){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
         row1ans = guess(1,row1ans);
-        // wait for guess two
-        x = sc.nextInt();
+        nextGuess = false;
+        while(nextGuess == false){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
         row2ans = guess(2,row2ans);
-        // wait for guess three
-        x = sc.nextInt();
+        nextGuess = false;
+        while(nextGuess == false){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
         row3ans = guess(3,row3ans);
-        // wait for guess four
-        x = sc.nextInt();
+        nextGuess = false;
+        while(nextGuess == false){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
         row4ans = guess(4,row4ans);
-        // wait for final guess
-        x = sc.nextInt();
+        nextGuess = false;
+        while(nextGuess == false){
+            try {
+                Thread.sleep(10);
+            } catch (InterruptedException ie) {
+                Thread.currentThread().interrupt();
+            }
+        }
         row5ans = guess(5,row5ans);
+        nextGuess = false;
     }
     
     public void paint (Graphics g){
+        wordlelogic logic = new wordlelogic();
+        
         // add label for make a guess
         placeText = "Make A Guess";
         l1.setForeground(Color.BLUE);
@@ -135,6 +173,8 @@ public class wordlegui extends JPanel
             addlabel(l2,placeText,375,800,500,50,20);
         } else{
             frame.remove(l2);
+            guessCheck = wordlelogic.check(wordlelogic.split(answerWord),wordlelogic.split(guess));
+            nextGuess = true;
         }
     }
     
@@ -185,7 +225,8 @@ public class wordlegui extends JPanel
     }
     
     // logic for next guess
-    public static int[] guess(int guessnum, int[] rowans){
+    public static int[] 
+    guess(int guessnum, int[] rowans){
         rowans = remap(guessCheck);
         preguess[guessnum-1] = guess;
         frame.add(gui);
