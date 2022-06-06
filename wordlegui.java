@@ -164,7 +164,7 @@ public class wordlegui extends JPanel
     
     public static void buttonGuessAction(ActionEvent evt){
         guess = t1.getText();
-        if(guess.length() > 5 | guess.length() < 5){
+        if(guess.length() != 5){
             frame.add(l2);
             // add label for please guess a five letter word
             placeText = "Please Guess a Five Letter Word!!!";
@@ -172,7 +172,11 @@ public class wordlegui extends JPanel
             addlabel(l2,placeText,375,800,500,50,20);
         } else{
             frame.remove(l2);
-            guessCheck = wordlelogic.check(wordlelogic.split(answerWord),wordlelogic.split(guess));
+            if(answerWord == guess){
+                //win();
+            } else{
+                guessCheck = wordlelogic.check(wordlelogic.split(answerWord),wordlelogic.split(guess));
+            }
             nextGuess = true;
         }
     }
