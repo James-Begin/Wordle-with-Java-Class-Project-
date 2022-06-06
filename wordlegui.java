@@ -164,7 +164,6 @@ public class wordlegui extends JPanel
     
     public static void buttonGuessAction(ActionEvent evt){
         guess = t1.getText();
-        System.out.print(guess);
         if(guess.length() > 5 | guess.length() < 5){
             frame.add(l2);
             // add label for please guess a five letter word
