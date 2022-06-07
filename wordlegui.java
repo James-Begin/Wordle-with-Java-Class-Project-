@@ -20,10 +20,14 @@ public class wordlegui extends JPanel
     static Label l7 = new Label("");
     static Label l8 = new Label("");
     
+    static Label win = new Label("");
+    static Label wordwas = new Label("");    
     // make text field to input guess
     static TextField t1 = new TextField();
     // make button to submit guess
     static Button b1 = new Button("Guess!");
+    //make button to exit game
+    static Button exit = new Button("Exit");
     
     // create list to store the guess answers
     static int[] guessCheck = {1,1,1,2,2};
@@ -47,8 +51,11 @@ public class wordlegui extends JPanel
     // create variable to store the guess
     static String guess;
     
+    static int counter = 0;
+    
     static wordlegui gui = new wordlegui();
     static JFrame frame = new JFrame("Wordle");
+    static JFrame winLoss = new JFrame("You Win");
     
     static boolean nextGuess = false;
     
@@ -68,12 +75,23 @@ public class wordlegui extends JPanel
         frame.add(l8);
         frame.add(t1);
         frame.add(b1);
+        
+        winLoss.add(win);
+        winLoss.add(exit);
         // implement button code
         b1.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
                 // delegate to event handler method
                 buttonGuessAction(evt);
+            }
+        });
+        
+        exit.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent evt) {
+                // delegate to event handler method
+                buttonGuessAction2(evt);
             }
         });
         // set frame size and make it visible
@@ -172,14 +190,40 @@ public class wordlegui extends JPanel
             addlabel(l2,placeText,375,800,500,50,20);
         } else{
             frame.remove(l2);
-            if(answerWord == guess){
-                //win();
-            } else{
-                guessCheck = wordlelogic.check(wordlelogic.split(answerWord),wordlelogic.split(guess));
+            if(answerWord.equals(guess)){
+                win();
+            }
+            guessCheck = wordlelogic.check(wordlelogic.split(answerWord),wordlelogic.split(guess));
+            counter += 1;
+            if (counter >= 6) {
+                lose();
             }
             nextGuess = true;
-        }
+            
+            }
     }
+    public static void win() {
+        winLoss.setSize(1000,1000);
+        winLoss.add(win);
+        winLoss.add(exit);
+        placeText = "Congratulations, You Won!";
+        addlabel(win, placeText, 250, 250,  1000, 100, 50);
+        exit.setBounds(475,725,50,50);
+        winLoss.setVisible(true);
+    }
+    public static void lose() {
+        winLoss.setSize(1000,1000);
+        winLoss.add(win);
+        winLoss.add(exit);
+        placeText = "Sorry, You Lose | Word: " + answerWord;
+        addlabel(win, placeText, 250, 250,  1000, 100, 50);
+        exit.setBounds(475,725,50,50);
+        winLoss.setVisible(true);
+    }
+    public static void buttonGuessAction2(ActionEvent evt) {
+        System.exit(0);
+    }
+    
     
     public static void nextRow(int[] letters, Graphics g){
         // this block will create the answer squares with the correct 
