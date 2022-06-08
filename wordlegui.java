@@ -4,7 +4,8 @@ import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.util.Date; 
-
+import java.util.ArrayList;
+import java.util.List;
 
 public class wordlegui extends JPanel 
 {   // create label for text "Make a Guess"
@@ -20,8 +21,11 @@ public class wordlegui extends JPanel
     static Label l7 = new Label("");
     static Label l8 = new Label("");
     
+    static Label validWord = new Label("");
+    
     static Label win = new Label("");
-    static Label wordwas = new Label("");    
+       
+    
     // make text field to input guess
     static TextField t1 = new TextField();
     // make button to submit guess
@@ -188,14 +192,20 @@ public class wordlegui extends JPanel
             placeText = "Please Guess a Five Letter Word!!!";
             l2.setForeground(Color.RED);
             addlabel(l2,placeText,375,800,500,50,20);
+        } else if (wordlelogic.isValidWord(guess) == (false)) {
+            frame.add(validWord);
+            placeText = "Not a Valid English Word";
+            validWord.setForeground(Color.RED);
+            addlabel(validWord, placeText, 375, 800, 500, 50, 20);
         } else{
             frame.remove(l2);
+            frame.remove(validWord);
             if(answerWord.equals(guess)){
                 win();
             }
             guessCheck = wordlelogic.check(wordlelogic.split(answerWord),wordlelogic.split(guess));
             counter += 1;
-            if (counter >= 6) {
+            if (counter >= 5) {
                 lose();
             }
             nextGuess = true;
