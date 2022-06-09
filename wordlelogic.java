@@ -7,19 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class wordlelogic {
-    public static void start(String guess) {
-    }
-    public static void print(String[] words) {
-        for (int i = 0; i < words.length;i++) {
-            System.out.print(words[i] + " ");
-            }
-    }
-    public static void printInt(int[] nums) {
-        for (int i = 0; i < nums.length; i++) {
-            System.out.print(nums[i] + " ");
-        }
-    }
-    
     //split function uses the .split() String method to split a string into a String array 
     //where each index is a seperate letter in the string
     //In this case, we split when there is no space character as every input is a single word
@@ -62,6 +49,7 @@ public class wordlelogic {
         return false;
     }
     
+    //whenever the user enters a guess, we have to check if it is a valid word in the list
     public static boolean isValidWord(String guessWord) {
         wordlemain main = new wordlemain();
         ArrayList<String> wordList = main.importWordList(); 
