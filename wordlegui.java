@@ -21,8 +21,10 @@ public class wordlegui extends JPanel
     static Label l7 = new Label("");
     static Label l8 = new Label("");
     
+    //create label to display the valid Word error
     static Label validWord = new Label("");
     
+    //create label to display a win or loss message pop-up
     static Label win = new Label("");
        
     
@@ -36,7 +38,7 @@ public class wordlegui extends JPanel
     // create list to store the guess answers
     static int[] guessCheck = {1,1,1,2,2};
     
-    // store previous answers of if the guesses are correct
+    //Intialize all the squares as grey
     static int[] row1ans = {0,0,0,0,0};
     static int[] row2ans = {0,0,0,0,0};
     static int[] row3ans = {0,0,0,0,0};
@@ -54,19 +56,23 @@ public class wordlegui extends JPanel
     
     // create variable to store the guess
     static String guess;
-    
+    //initialize counter to track the # of guesses
     static int counter = 0;
-    
+    //Initialize an instance of wordlegui so it can be called upon easily
     static wordlegui gui = new wordlegui();
+    //initialize the frame that contains all the graphical elements
     static JFrame frame = new JFrame("Wordle");
+    
+    //create a seperate frame to display the win or loss message
     static JFrame winLoss = new JFrame("You Win");
-    
+    //bool to determine whether the game moves on to the next guess
     static boolean nextGuess = false;
-    
+    //Initialize string to hold the randomly chosen word
     static String answerWord;
     
     public static void creation(String Word){
-        
+        //assign the randomly chosen word to the static variable 
+        //This allows it to be accessed across methods easily
         answerWord = Word;
         // add all elements to frame
         frame.add(l1);
@@ -79,7 +85,7 @@ public class wordlegui extends JPanel
         frame.add(l8);
         frame.add(t1);
         frame.add(b1);
-        
+        //add the win/loss label and exit button to the pop-up window
         winLoss.add(win);
         winLoss.add(exit);
         // implement button code
@@ -90,7 +96,7 @@ public class wordlegui extends JPanel
                 buttonGuessAction(evt);
             }
         });
-        
+        //implement button to exit the program
         exit.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent evt) {
@@ -102,7 +108,8 @@ public class wordlegui extends JPanel
         frame.setSize(1000,1000);
         frame.add(gui);
         frame.setVisible(true);
-        // wait for guess one
+        // wait for guess one, two , three etc.
+        //Create a short delay in between each guess to prevent errors
         while(nextGuess == false){
             try {
                 Thread.sleep(10);
@@ -151,6 +158,7 @@ public class wordlegui extends JPanel
     }
     
     public void paint (Graphics g){
+        //Initialize an instance of the wordle logic class
         wordlelogic logic = new wordlelogic();
         
         // add label for make a guess
@@ -194,15 +202,21 @@ public class wordlegui extends JPanel
             addlabel(l2,placeText,375,800,500,50,20);
         } else if (wordlelogic.isValidWord(guess) == (false)) {
             frame.add(validWord);
-            placeText = "Not a Valid English Word";
+            //label for when the word is not an English word
+            placeText = "Not a Valid 5 Letter Word";
             validWord.setForeground(Color.RED);
             addlabel(validWord, placeText, 375, 800, 500, 50, 20);
         } else{
+            //remove the error labels
             frame.remove(l2);
             frame.remove(validWord);
+            //if the user guesses the correct word, display the win message
             if(answerWord.equals(guess)){
                 win();
             }
+            //call the check method in wordlelogic with the guess and answer word
+            //we first have to split each word into arrays so we can compare each letter
+            //the output of this is an array that tells whether a square is yellow, green, or gray
             guessCheck = wordlelogic.check(wordlelogic.split(answerWord),wordlelogic.split(guess));
             counter += 1;
             if (counter >= 5) {
@@ -213,15 +227,17 @@ public class wordlegui extends JPanel
             }
     }
     public static void win() {
+        //open up a nwe pop-up window to display the winners message
         winLoss.setSize(1000,1000);
         winLoss.add(win);
         winLoss.add(exit);
-        placeText = "Congratulations, You Won!";
+        placeText = "Congratulations, You Won! | Word: " + answerWord;
         addlabel(win, placeText, 250, 250,  1000, 100, 50);
         exit.setBounds(475,725,50,50);
         winLoss.setVisible(true);
     }
     public static void lose() {
+        //open up a new pop-up window to display the loss message
         winLoss.setSize(1000,1000);
         winLoss.add(win);
         winLoss.add(exit);
@@ -231,6 +247,7 @@ public class wordlegui extends JPanel
         winLoss.setVisible(true);
     }
     public static void buttonGuessAction2(ActionEvent evt) {
+        //when exit button is pressed, the program stops
         System.exit(0);
     }
     
@@ -264,7 +281,7 @@ public class wordlegui extends JPanel
         l7.setForeground(Color.RED);
         l8.setForeground(Color.RED);
         
-        // add the previous guesses
+        // add the previous guesses to the frame
         placeText=preguess[0];
         addlabel(l4,placeText,10,230,150,20,20);
         
@@ -282,11 +299,11 @@ public class wordlegui extends JPanel
     }
     
     // logic for next guess
-    public static int[] 
-    guess(int guessnum, int[] rowans){
+    public static int[] guess(int guessnum, int[] rowans){
         rowans = remap(guessCheck);
         preguess[guessnum-1] = guess;
         frame.add(gui);
+        //update the frame
         SwingUtilities.updateComponentTreeUI(frame);
         return rowans;
     }
