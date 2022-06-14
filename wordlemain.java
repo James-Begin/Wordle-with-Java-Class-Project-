@@ -1,3 +1,7 @@
+//Author: James B & Koby S
+//Date: May 31, 2022
+//Computer Science culminating project
+
 import java.util.*;
 import java.io.*;
 import java.util.ArrayList;
